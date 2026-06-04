@@ -13,6 +13,6 @@ public class Company
     // Navigation property - all departments in this company
     public List<Department> Departments { get; set; } = [];
 
-    // Navigation property - all employees in this company
-    public List<Employee> Employees { get; set; } = [];
+    // REMOVED: Direct Employees navigation
+    // Access employees through Departments
 }

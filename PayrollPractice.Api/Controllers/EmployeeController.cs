@@ -7,17 +7,18 @@ namespace PayrollPractice.Api.Controllers;
 [ApiController]
 public class EmployeeController : ControllerBase
 {
-    // Mock data - temporary until I add a database
+    // Mock data - temporary until we add database access
     private static readonly List<EmployeeDto> _employees =
     [
         new EmployeeDto
         {
             Id = 1,
             Name = "John Doe",
-            CompanyName = "Microsoft",
+            CompanyId = 1,                    // ✅ Changed from CompanyName
+            CompanyName = "Microsoft",        // ✅ This is now optional/display only
             HourlyRate = 50.00m,
-            DepartmentName = "Engineering",
             DepartmentId = 1,
+            DepartmentName = "Engineering",   // ✅ This is now optional/display only
             BirthDate = new DateTime(1990, 5, 15),
             StartDate = new DateTime(2020, 1, 10),
             EndDate = null
@@ -26,10 +27,11 @@ public class EmployeeController : ControllerBase
         {
             Id = 2,
             Name = "Jane Smith",
-            CompanyName = "Microsoft",
+            CompanyId = 1,                    // ✅ Changed from CompanyName
+            CompanyName = "Microsoft",        // ✅ This is now optional/display only
             HourlyRate = 55.00m,
-            DepartmentName = "Marketing",
             DepartmentId = 2,
+            DepartmentName = "Marketing",     // ✅ This is now optional/display only
             BirthDate = new DateTime(1988, 8, 22),
             StartDate = new DateTime(2019, 3, 15),
             EndDate = null
@@ -43,7 +45,7 @@ public class EmployeeController : ControllerBase
         return Ok(_employees);
     }
 
-    // GET: api/employee/5
+    // GET: api/employee/{id}
     [HttpGet("{id}")]
     public ActionResult<EmployeeDto> GetEmployeeById(int id)
     {
@@ -51,9 +53,11 @@ public class EmployeeController : ControllerBase
 
         if (employee == null)
         {
-            return NotFound($"Employee with ID {id} not found.");
+            return NotFound();
         }
 
         return Ok(employee);
     }
+
+    // Add other methods as needed...
 }

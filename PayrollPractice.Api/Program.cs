@@ -1,4 +1,5 @@
 using PayrollPractice.Api.Context;
+using Microsoft.EntityFrameworkCore;
 
 
 var builder = WebApplication.CreateBuilder(args);
