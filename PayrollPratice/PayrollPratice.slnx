@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="../PayrollPractice.Api/PayrollPractice.Api.csproj" Id="516a8265-e8bd-476a-80f9-95c20512a8fa" />
+  <Project Path="PayrollPractice.csproj" />
+</Solution>
