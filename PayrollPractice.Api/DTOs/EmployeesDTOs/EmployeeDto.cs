@@ -4,7 +4,6 @@ public class EmployeeDto
 {
     public required int Id { get; set; }
     public required string Name { get; set; }
-    public required string CompanyName { get; set; }
     public required decimal HourlyRate { get; set; }
     public required string DepartmentName { get; set; }
     public required int DepartmentId { get; set; }

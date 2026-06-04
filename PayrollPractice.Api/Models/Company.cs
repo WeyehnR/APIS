@@ -1,14 +1,18 @@
-﻿namespace PayrollPractice.Api.Models
+﻿using System.ComponentModel.DataAnnotations;
 
+namespace PayrollPractice.Api.Models;
+
+public class Company
 {
-    public class Company
-    {
-        // this is the primary key for the company - it uniquely identifies the company in the database
-        public required string Id { get; set; }
+    [Required]
+    public int Id { get; set; } // Changed from string to int
 
-        public required string CompanyName { get; set; }
+    [Required]
+    public required string CompanyName { get; set; }
 
-        //maintains a list of employees in the company
-        internal List<Employee> Employees { get; set; } = [];
-    }
+    // Navigation property - all departments in this company
+    public List<Department> Departments { get; set; } = [];
+
+    // Navigation property - all employees in this company
+    public List<Employee> Employees { get; set; } = [];
 }
