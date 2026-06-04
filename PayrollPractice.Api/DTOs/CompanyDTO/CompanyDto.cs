@@ -1,0 +1,8 @@
+namespace PayrollPractice.Api.DTOs.CompanyDTO;
+
+public class CompanyDto
+{
+    public required string Id { get; set; }
+    public required string CompanyName { get; set; }
+    public List<int> EmployeeIds { get; set; } = [];
+}

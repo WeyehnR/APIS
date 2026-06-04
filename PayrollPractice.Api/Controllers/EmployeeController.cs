@@ -1,0 +1,59 @@
+﻿using Microsoft.AspNetCore.Mvc;
+using PayrollPractice.Api.DTOs.EmployeesDTOs;
+
+namespace PayrollPractice.Api.Controllers;
+
+[Route("api/[controller]")]
+[ApiController]
+public class EmployeeController : ControllerBase
+{
+    // Mock data - temporary until I add a database
+    private static readonly List<EmployeeDto> _employees =
+    [
+        new EmployeeDto
+        {
+            Id = 1,
+            Name = "John Doe",
+            CompanyName = "Microsoft",
+            HourlyRate = 50.00m,
+            DepartmentName = "Engineering",
+            DepartmentId = 1,
+            BirthDate = new DateTime(1990, 5, 15),
+            StartDate = new DateTime(2020, 1, 10),
+            EndDate = null
+        },
+        new EmployeeDto
+        {
+            Id = 2,
+            Name = "Jane Smith",
+            CompanyName = "Microsoft",
+            HourlyRate = 55.00m,
+            DepartmentName = "Marketing",
+            DepartmentId = 2,
+            BirthDate = new DateTime(1988, 8, 22),
+            StartDate = new DateTime(2019, 3, 15),
+            EndDate = null
+        }
+    ];
+
+    // GET: api/employee
+    [HttpGet]
+    public ActionResult<IEnumerable<EmployeeDto>> GetAllEmployees()
+    {
+        return Ok(_employees);
+    }
+
+    // GET: api/employee/5
+    [HttpGet("{id}")]
+    public ActionResult<EmployeeDto> GetEmployeeById(int id)
+    {
+        var employee = _employees.FirstOrDefault(e => e.Id == id);
+
+        if (employee == null)
+        {
+            return NotFound($"Employee with ID {id} not found.");
+        }
+
+        return Ok(employee);
+    }
+}
