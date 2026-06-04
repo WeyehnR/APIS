@@ -1,6 +1,0 @@
-@PayRollAnalzyser_HostAddress = http://localhost:5062
-
-GET {{PayRollAnalzyser_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###

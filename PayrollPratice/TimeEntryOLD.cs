@@ -1,5 +1,0 @@
-﻿namespace PayrollPratice;
-
-class TimeEntryOLD
-{
-}
