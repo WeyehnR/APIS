@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using PayrollPractice.Api.Context;
 using PayrollPractice.Api.Contract;
+using PayrollPractice.Api.Repositories;
 using PayrollPractice.Api.Services;
 
 
@@ -16,6 +17,7 @@ builder.Services.AddOpenApi();
 builder.Services.AddDbContext<PayrollPracticeDBContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
 builder.Services.AddScoped<IEmployeeService, EmployeeService>();
 
 var app = builder.Build();

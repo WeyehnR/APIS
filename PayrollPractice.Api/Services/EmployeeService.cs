@@ -6,13 +6,13 @@ using PayrollPractice.Api.Models;
 
 namespace PayrollPractice.Api.Services;
 
-public class EmployeeService(PayrollPracticeDBContext context) : IEmployeeService
+public class EmployeeService(IEmployeeRepository employeeRepository) : IEmployeeService
 {
-    private readonly PayrollPracticeDBContext _context = context;
+    private readonly IEmployeeRepository _employeeRepository = employeeRepository;
 
     public async Task<Employee> CreateEmployeeAsync(CreateEmployeeDto employeeCreateDto)
     {
-        var departmentExists = _context.Departments.Any(d => d.Id == employeeCreateDto.DepartmentId);
+        var departmentExists = await _employeeRepository.DepartmentExistsAsync(employeeCreateDto.DepartmentId);
         if (!departmentExists)
         {
             throw new Exception($"Department with ID {employeeCreateDto.DepartmentId} does not exist.");
@@ -27,16 +27,13 @@ public class EmployeeService(PayrollPracticeDBContext context) : IEmployeeServic
             StartDate = employeeCreateDto.StartDate
         };
 
-        _context.Employees.Add(newEmployee);
-        await _context.SaveChangesAsync();
+        await _employeeRepository.AddAsync(newEmployee);
+        await _employeeRepository.SaveChangesAsync();
         return newEmployee;
     }
     public async Task<Employee?> GetEmployeeByIdAsync(int employeeId)
     {
-        return await _context.Employees
-            .Include(e => e.Department)           // Load the department
-                .ThenInclude(d => d != null ? d.Company : null)      // Load the company through department
-            .FirstOrDefaultAsync(e => e.Id == employeeId);  // ✅ Execute the query!
+        return await _employeeRepository.GetByIdWithDetailsAsync(employeeId);
     }
 
     public Task<Employee> DeleteEmployeeAsync(Employee employeeToDeleteDto)
