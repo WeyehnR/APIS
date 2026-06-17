@@ -1,6 +1,14 @@
-@PayrollPractice.Api_HostAddress = http://localhost:5101
+@PayrollPractice.Api_HostAddress = https://localhost:7167
 
-GET {{PayrollPractice.Api_HostAddress}}/weatherforecast/
-Accept: application/json
+### Create a New Employee
+POST {{PayrollPractice.Api_HostAddress}}/api/employee
+Content-Type: application/json
 
-###
+{
+  "name": "Weyehn Reeves",
+  "hourlyRate": 35.50,
+  "departmentId": 2,
+  "birthDate": "1995-04-12",
+  "startDate": "2026-06-01"
+}
+

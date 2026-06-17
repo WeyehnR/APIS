@@ -1,30 +1,44 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using PayrollPractice.Api.DTOs.EmployeesDTOs;
 using PayrollPractice.Api.Contract;
-
+using PayrollPractice.Api.DTOs.EmployeesDTOs;
 
 namespace PayrollPractice.Api.Controllers;
 
-[Route("api/[controller]")]
 [ApiController]
-//So we need to inject the PayrollPracticeDbContext into the controller to access the database. We can do this using constructor injection.
+[Route("api/[controller]")]
 public class EmployeeController(IEmployeeService employeeService) : ControllerBase
 {
-    private readonly IEmployeeService _employeeService = employeeService;
-
-
     [HttpPost]
-    public async Task<ActionResult> CreateEmployee(CreateEmployeeDto employeeCreateDto)
+    public async Task<IActionResult> CreateEmployee([FromBody] CreateEmployeeDto createDto)
     {
         try
         {
-            var createdEmployee = await _employeeService.CreateEmployeeAsync(employeeCreateDto);
-            return Ok(createdEmployee);
+            // 1. Call the service layer to validate and process business logic
+            var createdEmployeeDto = await employeeService.CreateEmployeeAsync(createDto);
+
+            // 2. Return HTTP 201 Created with a pointer to where the resource lives
+            return CreatedAtAction(
+                nameof(GetEmployeeById),
+                new { id = createdEmployeeDto.Id },
+                createdEmployeeDto
+            );
         }
-        catch (Exception ex)
+        catch (ArgumentException ex) // Catching validation issues (e.g., Department doesn't exist)
         {
-            return BadRequest(ex.Message);
+            // Return HTTP 400 Bad Request with the validation message
+            return BadRequest(new { message = ex.Message });
+        }
+        catch (Exception)
+        {
+            // Return HTTP 500 Internal Server Error for unhandled crashes
+            return StatusCode(500, new { message = "An error occurred while processing your request." });
         }
     }
 
+    [HttpGet("{id:int}")]
+    public async Task<IActionResult> GetEmployeeById(int id)
+    {
+        // Placeholder GET endpoint so CreatedAtAction has a valid action name to reference
+        return Ok(new { id, message = "GET endpoint placeholder" });
+    }
 }
