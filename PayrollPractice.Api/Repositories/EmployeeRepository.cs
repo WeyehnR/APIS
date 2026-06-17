@@ -1,5 +1,4 @@
-﻿// Repositories/EmployeeRepository.cs
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using PayrollPractice.Api.Context;
 using PayrollPractice.Api.Contract;
 using PayrollPractice.Api.Models;
@@ -19,7 +18,7 @@ public class EmployeeRepository(PayrollPracticeDBContext context) : IEmployeeRep
     {
         return await _context.Employees
             .Include(e => e.Department)
-                .ThenInclude(d => d != null ? d.Company : null)
+                .ThenInclude(d => d.Company)
             .FirstOrDefaultAsync(e => e.Id == id);
     }
 

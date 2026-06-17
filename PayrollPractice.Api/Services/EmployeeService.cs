@@ -1,6 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using PayrollPractice.Api.Context;
-using PayrollPractice.Api.Contract;
+﻿using PayrollPractice.Api.Contract;
 using PayrollPractice.Api.DTOs.EmployeesDTOs;
 using PayrollPractice.Api.Models;
 
