@@ -4,6 +4,8 @@ using PayrollPractice.Api.DTOs.EmployeesDTOs;
 using PayrollPractice.Api.Models;
 using PayrollPractice.Api.Services;
 
+[assembly: Parallelize(Scope = ExecutionScope.MethodLevel, Workers = 0)]
+
 namespace PayrollPractice.Api.UnitTests.Services;
 
 [TestClass]
@@ -48,7 +50,9 @@ public class EmployeeServiceTests
         Assert.AreEqual(1, result.DepartmentId);
         Assert.AreEqual(new DateTime(1990, 5, 15), result.BirthDate);
         Assert.AreEqual(new DateTime(2024, 1, 1), result.StartDate);
+#pragma warning disable MSTEST0037 // Use 'Assert.IsGreaterThan' instead of 'Assert.IsTrue'
         Assert.IsTrue(result.Id > 0);
+#pragma warning restore MSTEST0037
     }
 
     [TestMethod]
