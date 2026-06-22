@@ -25,7 +25,7 @@ public class EmployeeServiceTests
     {
         // Arrange
         var context = GetInMemoryDbContext();
-        var service = new EmployeeService(context);
+        var service = new EmployeeService((Contract.IEmployeeRepository)context);
 
         var department = new Department { Id = 1, Name = "IT", CompanyId = 1 };
         context.Departments.Add(department);
@@ -60,7 +60,7 @@ public class EmployeeServiceTests
     {
         // Arrange
         var context = GetInMemoryDbContext();
-        var service = new EmployeeService(context);
+        var service = new EmployeeService((Contract.IEmployeeRepository)context);
 
         var createDto = new CreateEmployeeDto
         {
@@ -88,7 +88,7 @@ public class EmployeeServiceTests
     {
         // Arrange
         var context = GetInMemoryDbContext();
-        var service = new EmployeeService(context);
+        var service = new EmployeeService((Contract.IEmployeeRepository)context);
 
         var department = new Department { Id = 1, Name = "HR", CompanyId = 1 };
         context.Departments.Add(department);
@@ -119,7 +119,7 @@ public class EmployeeServiceTests
     {
         // Arrange
         var context = GetInMemoryDbContext();
-        var service = new EmployeeService(context);
+        var service = new EmployeeService((Contract.IEmployeeRepository)context);
 
         var department = new Department { Id = 1, Name = "Operations", CompanyId = 1 };
         context.Departments.Add(department);
@@ -147,7 +147,7 @@ public class EmployeeServiceTests
     {
         // Arrange
         var context = GetInMemoryDbContext();
-        var service = new EmployeeService(context);
+        var service = new EmployeeService((Contract.IEmployeeRepository)context);
 
         var department = new Department { Id = 1, Name = "Executive", CompanyId = 1 };
         context.Departments.Add(department);
@@ -175,7 +175,7 @@ public class EmployeeServiceTests
     {
         // Arrange
         var context = GetInMemoryDbContext();
-        var service = new EmployeeService(context);
+        var service = new EmployeeService((Contract.IEmployeeRepository)context);
 
         var department = new Department { Id = 1, Name = "Finance", CompanyId = 1 };
         context.Departments.Add(department);
@@ -203,7 +203,7 @@ public class EmployeeServiceTests
     {
         // Arrange
         var context = GetInMemoryDbContext();
-        var service = new EmployeeService(context);
+        var service = new EmployeeService((Contract.IEmployeeRepository)context);
 
         var department = new Department { Id = 1, Name = "Marketing", CompanyId = 1 };
         context.Departments.Add(department);
